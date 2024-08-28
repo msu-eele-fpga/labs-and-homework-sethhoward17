@@ -42,7 +42,7 @@ end entity;
 2. List
 3. Here
 
-![Image of electrical design stuff](ElectricalEngineer.jpg)
+![Image of electrical design stuff](assets/ElectricalEngineer.jpg)
 
 [Link to MSU ECE Page](https://ece.montana.edu/)
 
