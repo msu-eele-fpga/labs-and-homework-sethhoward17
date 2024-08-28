@@ -1,4 +1,4 @@
 # Lab 1 Hello World
 
-![Hello World Image](Lab1HelloWorld.png)
+![Hello World Image](assets/Lab1HelloWorld.png)
 
