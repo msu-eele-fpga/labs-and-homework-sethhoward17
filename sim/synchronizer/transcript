@@ -37,3 +37,5 @@ run -all
 #    Time: 100 ns  Iteration: 0  Instance: /synchronizer_tb
 # 1
 # Break in Process check_output at C:/Users/Owner/EELE467/EELE467_Assignments/sim/synchronizer/synchronizer_tb.vhd line 111
+# End time: 10:54:30 on Sep 03,2024, Elapsed time: 0:19:31
+# Errors: 0, Warnings: 2
