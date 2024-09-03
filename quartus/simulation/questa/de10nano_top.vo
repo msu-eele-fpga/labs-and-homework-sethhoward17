@@ -17,7 +17,7 @@
 // PROGRAM "Quartus Prime"
 // VERSION "Version 23.1std.1 Build 993 05/14/2024 SC Lite Edition"
 
-// DATE "08/29/2024 17:21:12"
+// DATE "09/03/2024 10:19:15"
 
 // 
 // Device: Altera 5CSEBA6U23I7 Package UFBGA672
@@ -46,10 +46,10 @@ input 	fpga_clk3_50;
 input 	[1:0] push_button_n;
 input 	[3:0] sw;
 output 	[7:0] led;
-output 	[35:0] gpio_0;
-output 	[35:0] gpio_1;
-output 	[15:0] arduino_io;
-output 	arduino_reset_n;
+inout 	[35:0] gpio_0;
+inout 	[35:0] gpio_1;
+inout 	[15:0] arduino_io;
+inout 	arduino_reset_n;
 
 // Design Ports Information
 // fpga_clk1_50	=>  Location: PIN_V11,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default

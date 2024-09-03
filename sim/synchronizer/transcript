@@ -1,0 +1,39 @@
+vsim -gui work.synchronizer_tb
+# vsim -gui work.synchronizer_tb 
+# Start time: 10:32:32 on Sep 03,2024
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading std.env(body)
+# Loading work.synchronizer_tb(testbench)
+# Loading work.synchronizer(synchronizer_arch)
+add wave sim:/synchronizer_tb/*
+run
+run -all
+# ** Note: all tests passed!
+#    Time: 100 ns  Iteration: 0  Instance: /synchronizer_tb
+# 1
+# Break in Process check_output at C:/Users/Owner/EELE467/EELE467_Assignments/sim/synchronizer/synchronizer_tb.vhd line 111
+run -all
+# ** Note: all tests passed!
+#    Time: 200 ns  Iteration: 0  Instance: /synchronizer_tb
+# 1
+# Break in Process check_output at C:/Users/Owner/EELE467/EELE467_Assignments/sim/synchronizer/synchronizer_tb.vhd line 111
+quit -sim
+# End time: 10:34:29 on Sep 03,2024, Elapsed time: 0:01:57
+# Errors: 0, Warnings: 1
+vsim -gui work.synchronizer_tb
+# vsim -gui work.synchronizer_tb 
+# Start time: 10:34:59 on Sep 03,2024
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading std.env(body)
+# Loading work.synchronizer_tb(testbench)
+# Loading work.synchronizer(synchronizer_arch)
+add wave sim:/synchronizer_tb/*
+run -all
+# ** Note: all tests passed!
+#    Time: 100 ns  Iteration: 0  Instance: /synchronizer_tb
+# 1
+# Break in Process check_output at C:/Users/Owner/EELE467/EELE467_Assignments/sim/synchronizer/synchronizer_tb.vhd line 111
