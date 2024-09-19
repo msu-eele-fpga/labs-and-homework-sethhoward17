@@ -1,9 +1,6 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.assert_pkg.all;
-use work.print_pkg.all;
-use work.tb_pkg.all;
 
 entity one_pulse is
 	port (
@@ -17,7 +14,8 @@ end entity one_pulse;
 architecture one_pulse_arch of one_pulse is
 
 	--instantiate signals for pulsing
-	signal pulsed : boolean := false; 
+	signal pulsed 			: boolean := false; 
+	signal current_value : std_ulogic := '0';
 
 begin
 
@@ -26,18 +24,21 @@ begin
 
 		--reset signals when reset is asserted
 		if rst = '1' then
-			pulse  <= '0';
-			pulsed <= false;
+			pulse  		  <= '0';
+			current_value <= '0';
+			pulsed 		  <= false;
 		elsif rising_edge(clk) then
 			--if the "pulsed" signal has been asserted, wait until input returns to 0
 			if pulsed then
-				pulse  <= '0';
+				pulse  		  <= '0';
+				current_value <= '0';
 				if input = '0' then
 				pulsed <= false;
 				end if;				
-			elsif pulse /= input then
-				pulse  <= input;
-				pulsed <= true;
+			elsif current_value /= input then
+				pulse  	     <= input;
+				current_value <= input;
+				pulsed 		  <= true;
 			end if;
 		end if;
 	end process one_pulse;
