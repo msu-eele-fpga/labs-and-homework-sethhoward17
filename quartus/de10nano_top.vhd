@@ -41,7 +41,7 @@ entity de10nano_top is
     --  when pressed (asserted)
     --  and produce a '1' in the rest (non-pushed) state
     ----------------------------------------
-    push_button_n : in    std_logic_vector(1 downto 0);
+    push_button_n : in    std_ulogic_vector(1 downto 0);
 
     ----------------------------------------
     --  Slide switch inputs (SW)
@@ -50,14 +50,14 @@ entity de10nano_top is
     --  in the down position
     --  (towards the edge of the board)
     ----------------------------------------
-    sw : in    std_logic_vector(3 downto 0);
+    sw : in    std_ulogic_vector(3 downto 0);
 
     ----------------------------------------
     --  LED outputs
     --  See DE10 Nano User Manual page 26
     --  Setting LED to 1 will turn it on
     ----------------------------------------
-    led : out   std_logic_vector(7 downto 0);
+    led : out   std_ulogic_vector(7 downto 0);
 
     ----------------------------------------
     --  GPIO expansion headers (40-pin)
@@ -80,9 +80,42 @@ end entity de10nano_top;
 
 architecture de10nano_arch of de10nano_top is
 
+	component led_patterns is
+		generic (
+      	system_clock_period : time := 20 ns
+		); 
+		port(
+   	  clk             : in  std_ulogic;                         -- system clock
+        rst             : in  std_ulogic;                         -- system reset (assume active high, change at top level if needed)
+        push_button     : in  std_ulogic;                         -- Pushbutton to change state (assume active high, change at top level if needed)
+        switches        : in  std_ulogic_vector(3 downto 0);      -- Switches that determine the next state to be selected
+        hps_led_control : in  boolean;                         	-- Software is in control when asserted (=1)
+        base_period     : in  unsigned(7 downto 0);      			-- base transition period in seconds, fixed-point data type (W=8, F=4).
+        led_reg         : in  std_ulogic_vector(7 downto 0);      -- LED register
+        led             : out std_ulogic_vector(7 downto 0)       -- LEDs on the DE10-Nano board
+		);   
+	end component led_patterns;
+	
+	constant system_clock_period : time := 20 ns;
+	signal hps_led_control		  : boolean := false;
+	signal base_period			  : unsigned(7 downto 0) := "00001000";
+	signal led_reg					  : std_ulogic_vector(7 downto 0);
+
 begin
 
-  led(3 downto 0)  <= sw(3 downto 0);
-  led(7 downto 4)  <= "0000";
+  LED_PATTERN_COMPONENT : component led_patterns
+		generic map (
+			system_clock_period => system_clock_period
+		)
+		port map (
+			clk 					=> fpga_clk1_50,
+			rst 					=> not push_button_n(1),
+			push_button 		=> not push_button_n(0),
+			switches 			=> sw,
+			hps_led_control 	=> hps_led_control,
+			base_period 		=> base_period,
+			led_reg 				=> led_reg,
+			led 					=> led
+		);
 
 end architecture de10nano_arch;
