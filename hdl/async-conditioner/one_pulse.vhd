@@ -19,7 +19,7 @@ architecture one_pulse_arch of one_pulse is
 
 begin
 
-	one_pulse : process(clk) is
+	one_pulse : process(clk)
 	begin
 
 		--reset signals when reset is asserted
