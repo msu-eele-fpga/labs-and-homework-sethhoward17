@@ -9,7 +9,7 @@ entity pattern_gen is
 		rst  			: in std_ulogic;
 		sel  			: in natural;
 		led 			: out std_ulogic_vector(7 downto 0)
-	);
+	):
 end entity pattern_gen;
 
 architecture pattern_gen_arch of pattern_gen is
