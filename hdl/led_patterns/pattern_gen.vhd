@@ -107,7 +107,7 @@ begin
 		elsif rising_edge(pat_clk) then
 			led4(6 downto 4) <= led4(5 downto 3);
 			led4(2 downto 0) <= led4(3 downto 1);
-			led(3)			  <= led(0);	
+			led4(3)			  <= led4(0);
 		end if;	
 	end process;
 
