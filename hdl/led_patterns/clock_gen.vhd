@@ -3,9 +3,6 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use ieee.math_real.all;
 
-library altera;
-use altera.altera_primitives_components.all;
-
 entity clock_gen is
 	port (
 		clk				: in std_ulogic;
@@ -55,7 +52,7 @@ architecture clock_gen_arch of clock_gen is
 
 begin
 
-	period_base_clk_full_prec <= SYS_CLK_FREQ * base_period;
+	period_base_clk_full_prec <= (SYS_CLK_FREQ / 2) * base_period;
 	period_base_clk <= period_base_clk_full_prec(N_BITS_CLK_CYCLES_FULL - 1 downto 4);
 
 	countBase_limit 	<= to_integer(period_base_clk);
