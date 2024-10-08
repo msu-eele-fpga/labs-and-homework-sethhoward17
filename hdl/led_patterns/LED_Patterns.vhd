@@ -2,13 +2,8 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-library altera;
-use altera.altera_primitives_components.all;
 
 entity led_patterns is
-   generic (
-      	system_clock_period : time := 20 ns
-   ); 
    port(
 		clk             : in  std_ulogic;                         -- system clock
       rst             : in  std_ulogic;                         -- system reset (assume active high, change at top level if needed)
@@ -56,9 +51,7 @@ architecture my_architecture of led_patterns is
 		);
 	end component clock_gen;
 
-	--signals for display state
-	constant DisplayTime  		: time 	 := 1 sec;
-	signal countDisplay_limit 	: natural := DisplayTime / system_clock_period;
+	signal countDisplay_limit 	: natural := 50000000;--DisplayTime / system_clock_period;
 	signal countDisplay   		: natural := 0;
 	signal should_display 		: boolean := false;
 
