@@ -366,7 +366,7 @@ begin
 		led_patterns_switches	 => sw,
 
       clk_clk       => fpga_clk1_50,
-      reset_reset_n => not push_button_n(1)
+      reset_reset_n => push_button_n(1)
     );
 
 end architecture de10nano_arch;
