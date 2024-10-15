@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 entity led_patterns_avalon is
 	port (
 		clk : in std_ulogic;
-		rst 	: in std_ulogic;
+		reset 	: in std_ulogic;
 		-- avalon memory-mapped slave interface
 		avs_read 		: in std_ulogic;
 		avs_write 		: in std_ulogic;
@@ -34,7 +34,7 @@ architecture led_patterns_avalon_arch of led_patterns_avalon is
     );   
 	end component led_patterns;
 	
-	signal hps_led_control_convert : boolean;
+	signal hps_led_control_convert : boolean := false;
 	signal reg_hps_led_control 	 : std_ulogic_vector(31 downto 0) := (others => '0');
 	signal reg_base_period	  		 : std_ulogic_vector(31 downto 0) := x"00000004";
 	signal reg_led_reg				 : std_ulogic_vector(31 downto 0) := (others => '0');
@@ -53,7 +53,7 @@ begin
 	LED_PATTERN_COMPONENT : component led_patterns
 		port map (
 			clk 					=> clk,
-			rst 					=> rst,
+			rst 					=> reset,
 			push_button			=> push_button,
 			switches 			=> switches,
 			hps_led_control 	=> hps_led_control_convert,
@@ -74,9 +74,9 @@ begin
 		end if;
 	end process;
 	
-	avalon_register_write : process(clk, rst)
+	avalon_register_write : process(clk, reset)
 	begin
-		if rst = '1' then
+		if reset = '1' then
 			reg_hps_led_control 	<= (others => '0');			
 			reg_base_period		<= x"00000004";
 			reg_led_reg			 	<= (others => '0');

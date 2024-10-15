@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-    <path path= "../hdl/led_patterns/led_patterns_avalon_hw.tcl"/>
+    <path path= "../hdl/**/*"/>
 </library>
