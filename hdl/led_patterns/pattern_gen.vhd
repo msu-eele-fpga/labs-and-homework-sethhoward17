@@ -14,6 +14,8 @@ end entity pattern_gen;
 
 architecture pattern_gen_arch of pattern_gen is
 
+--new comment
+
 	--count signals for each pattern
 	signal count0		 : natural := 0;
 	signal count1		 : natural := 0;
