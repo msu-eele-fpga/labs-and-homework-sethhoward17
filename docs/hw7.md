@@ -86,7 +86,7 @@ The output of this one also had a LOT of stuff. The output ended with 0.
 ![Piping](assets/HW7_image19.png)
 
 ### Problem 20
-`$find ../../hdl/* -iname '*.hdl' | wc -w`
+`$find ../../hdl/* -iname '*.vhd' | wc -w`
 ![Count hdl files](assets/HW7_image20.png)
 
 ### Problem 21
