@@ -12,7 +12,7 @@ entity pwm_controller is
 		rst 			: in std_logic;
 		-- PWM repetition period in milliseconds;
 		-- datatype (W.F) is individually assigned
-		period 		: in unsigned(33 - 1 downto 0);
+		period 		: in unsigned(32 - 1 downto 0);
 		-- PWM duty cycle between [0 1]; out-of-range values are hard-limited
 		-- datatype (W.F) is individually assigned
 		duty_cycle 	: in std_logic_vector(20 - 1 downto 0);
@@ -26,7 +26,7 @@ architecture pwm_controller_arch of pwm_controller is
 	constant N_BITS_SYS_CLK_FREQ : natural := natural(ceil(log2(real(SYSTEM_CLOCK_FREQ))));
 	constant SYS_CLK_FREQ 		   : unsigned(N_BITS_SYS_CLK_FREQ - 1 downto 0) := to_unsigned(SYSTEM_CLOCK_FREQ, N_BITS_SYS_CLK_FREQ);
 
-	constant N_BITS_CLK_CYCLES_FULL : natural := N_BITS_SYS_CLK_FREQ + 33;
+	constant N_BITS_CLK_CYCLES_FULL : natural := N_BITS_SYS_CLK_FREQ + 32;
 	constant N_BITS_CLK_CYCLES      : natural := N_BITS_SYS_CLK_FREQ + 6;
 
 	signal period_clk_full_prec : unsigned(N_BITS_CLK_CYCLES_FULL - 1 downto 0);
@@ -43,7 +43,7 @@ begin
 
 	--Calculate the number of clock cycles associated with the period input
 	period_clk_full_prec <= (SYS_CLK_FREQ) * period;
-	period_clk <= period_clk_full_prec(N_BITS_CLK_CYCLES_FULL - 1 downto 27);
+	period_clk <= period_clk_full_prec(N_BITS_CLK_CYCLES_FULL - 1 downto 26);
 	duty_clk 		<= unsigned(duty_cycle) * period_clk;
 	 
 	--Get the counting limit for the period and the duty cycle

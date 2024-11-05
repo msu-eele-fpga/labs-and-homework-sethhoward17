@@ -197,23 +197,6 @@ end entity de10nano_top;
 
 architecture de10nano_arch of de10nano_top is
 
-	component pwm_controller is
-		generic (
-			CLK_PERIOD : time := 20 ns
-		);
-		port (
-			clk : in std_logic;
-			rst : in std_logic;
-			-- PWM repetition period in milliseconds;
-			-- datatype (W.F) is individually assigned
-			period : in unsigned(33 - 1 downto 0);
-			-- PWM duty cycle between [0 1]; out-of-range values are hard-limited
-			-- datatype (W.F) is individually assigned
-			duty_cycle : in std_logic_vector(20 - 1 downto 0);
-			output : out std_logic
-		);
-	end component pwm_controller;
-	
 	component soc_system is
     port (
       hps_io_hps_io_emac1_inst_tx_clk : out   std_ulogic;
@@ -282,27 +265,13 @@ architecture de10nano_arch of de10nano_top is
       memory_oct_rzqin                : in    std_ulogic;
       clk_clk                         : in    std_ulogic;
       reset_reset_n                   : in    std_ulogic;
-		led_patterns_push_button        : in    std_ulogic                     := 'X';             -- push_button
-      led_patterns_led                : out   std_ulogic_vector(7 downto 0);                     -- led
-      led_patterns_switches           : in    std_ulogic_vector(3 downto 0)  := (others => 'X')  -- switches
+		export_red_out				        : out   std_ulogic;
+      export_green_out                : out   std_ulogic;
+      export_blue_out		           : out   std_ulogic
     );
   end component soc_system;
-	
---	constant system_clock_period : time := 20 ns;
---	signal hps_led_control		  : boolean := false;
---	signal base_period			  : unsigned(7 downto 0) := "00001000";
---	signal led_reg					  : std_ulogic_vector(7 downto 0);
 
 begin
-
-	PWM_CONTROL : component pwm_controller
-	port map(
-		clk 				=> fpga_clk1_50,
-		rst 				=> not push_button_n(1),
-		period 			=> "000001000000000000000000000000000",
-		duty_cycle 		=> "01000000000000000000",
-		output		 	=> gpio_1(0)
-	);
 	
   u0 : component soc_system
     port map (
@@ -386,10 +355,10 @@ begin
       memory_mem_dm      => hps_ddr3_dm,
       memory_oct_rzqin   => hps_ddr3_rzq,
 		
-		--LED_Patterns Signals
-		led_patterns_push_button => not push_button_n(0),
-		led_patterns_led		    => led,
-		led_patterns_switches	 => sw,
+		--RGB_LED_Control Signals
+		export_red_out		=> gpio_1(0),
+		export_green_out	=> gpio_1(1),
+		export_blue_out	=> gpio_1(2),
 
       clk_clk       => fpga_clk1_50,
       reset_reset_n => push_button_n(1)

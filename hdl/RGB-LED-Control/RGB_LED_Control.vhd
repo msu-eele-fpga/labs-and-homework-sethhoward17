@@ -31,7 +31,7 @@ architecture RGB_LED_Control_arch of RGB_LED_Control is
 			rst : in std_logic;
 			-- PWM repetition period in milliseconds;
 			-- datatype (W.F) is individually assigned
-			period : in unsigned(33 - 1 downto 0);
+			period : in unsigned(32 - 1 downto 0);
 			-- PWM duty cycle between [0 1]; out-of-range values are hard-limited
 			-- datatype (W.F) is individually assigned
 			duty_cycle : in std_logic_vector(20 - 1 downto 0);
@@ -39,7 +39,7 @@ architecture RGB_LED_Control_arch of RGB_LED_Control is
 		);
 	end component pwm_controller;
 
-	signal reg_period	  		: std_ulogic_vector(63 downto 0) := "000001000000000000000000000000000"; --1 ms period
+	signal reg_period	  		: std_ulogic_vector(31 downto 0) := (26 => '1', others => '0'); --1 ms period
 	signal reg_red_duty 		: std_ulogic_vector(31 downto 0) := (others => '0'); --0% duty cycle
 	signal reg_green_duty	: std_ulogic_vector(31 downto 0) := (others => '0'); --0% duty cycle
 	signal reg_blue_duty	  	: std_ulogic_vector(31 downto 0) := (others => '0'); --0% duty cycle
@@ -50,7 +50,7 @@ begin
 	port map(
 		clk 				=> clk,
 		rst 				=> rst,
-		period 			=> unsigned(reg_period(32 downto 0)),
+		period 			=> unsigned(reg_period),
 		duty_cycle 		=> std_logic_vector(reg_red_duty(19 downto 0)),
 		output		 	=> red_out
 	);
@@ -59,7 +59,7 @@ begin
 	port map(
 		clk 				=> clk,
 		rst 				=> rst,
-		period 			=> unsigned(reg_period(32 downto 0)),
+		period 			=> unsigned(reg_period),
 		duty_cycle 		=> std_logic_vector(reg_green_duty(19 downto 0)),
 		output		 	=> green_out
 	);
@@ -68,7 +68,7 @@ begin
 	port map(
 		clk 				=> clk,
 		rst 				=> rst,
-		period 			=> unsigned(reg_period(32 downto 0)),
+		period 			=> unsigned(reg_period),
 		duty_cycle 		=> std_logic_vector(reg_blue_duty(19 downto 0)),
 		output		 	=> blue_out
 	);
@@ -89,7 +89,7 @@ begin
 	rgb_register_write : process(clk, rst)
 	begin
 		if rst = '1' then
-			reg_period 			<= "000001000000000000000000000000000";	--1 ms period		
+			reg_period 			<= (26 => '1', others => '0');	--1 ms period		
 			reg_red_duty		<= (others => '0');	--0% duty cycle
 			reg_green_duty		<= (others => '0');	--0% duty cycle
 			reg_blue_duty		<= (others => '0');	--0% duty cycle
